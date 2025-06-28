@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
 function Navbar() {
-    const [active, setActive] = useState(true);
+    const [active, setActive] = useState(false);
     const handleShowHidden = () => {
         setActive(!active)
     }
     return (
-        <div className={`${active ? 'w-60 ' : 'w-0'} duration-500 h-screen  bg-slate-900 text-white text-right`}>
-            <div className={`mb-4 p-2 bg-slate-800 hover:bg-slate-700 w-10 rounded-lg absolute  ${active ? 'left-48' : 'left-4'} duration-500`}>
+        <div className={`${active ? 'w-60 ' : 'w-0'} duration-500 h-screen  bg-slate-900 text-white text-right `}>
+            <div className={`mb-4 p-2 bg-slate-800 hover:bg-slate-700 w-10 rounded-lg absolute  ${active ? 'left-48' : 'left-4'} top-5 duration-500`}>
                 <button onClick={handleShowHidden}>
                     key
                 </button>
