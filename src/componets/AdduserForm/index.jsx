@@ -1,17 +1,25 @@
 import { Button, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addUser } from '../../features/users/usersSlice';
+import { addUser, editUser } from '../../features/users/usersSlice';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-function AddUsersForm({ setAdd }) {
+function AddUsersForm({ editingUser, setAdd }) {
     const dispatch = useDispatch()
-    const { register, handleSubmit, reset } = useForm()
+    const { register, handleSubmit, reset, setValue } = useForm()
+    useEffect(() => {
+        if (editingUser) {
+            setValue('name', editingUser.name),
+                setValue('username', editingUser.username),
+                setValue('email', editingUser.email),
+                setValue('city', editingUser.address?.city)
+        }
+    }, [])
 
     const onSubmit = async (data) => {
         const user = {
-            id:  Date.now(),
+            id: editingUser ? editingUser : Date.now(),
             name: data.name,
             username: data.username,
             email: data.email,
@@ -19,8 +27,13 @@ function AddUsersForm({ setAdd }) {
                 city: data.city
             }
         }
-        dispatch(addUser(user))
-        toast.success('add new user successfully')
+        if (editingUser) {
+            dispatch(editUser(user))
+            toast.info('edit user successfully')
+        } else {
+            dispatch(addUser(user))
+            toast.success('add new user successfully')
+        }
         reset()
         setAdd(false)
     }
@@ -51,7 +64,7 @@ function AddUsersForm({ setAdd }) {
                         color='info'
                     />
                     <TextField
-                      {...register('city')}
+                        {...register('city')}
                         name="city"
                         label="City"
                         variant="outlined"

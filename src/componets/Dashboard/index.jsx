@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Users from '../../pages/users'
 import AddUsersForm from '../AdduserForm'
 const DashBorad = () => {
-    const [add, setAdd] = useState(false)
     return (
 
         <div className='grid'>
@@ -21,14 +20,7 @@ const DashBorad = () => {
                 </div>
             </div>
             <div className='bg-white mt-4 h-86 p-3 overflow-y-scroll'>
-                <div className='p-2 bg-gray-200 w-12 rounded-xl' onClick={() => { setAdd(!add) }}>ADD</div>
-                {
-                    add && <AddUsersForm add={add} setAdd={setAdd} />
-                }
-
-                <div className=''>
-                    <Users />
-                </div>
+                <Users />
             </div>
         </div>
     )
