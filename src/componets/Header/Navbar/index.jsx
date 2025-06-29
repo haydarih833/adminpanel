@@ -14,14 +14,14 @@ function Navbar() {
             </div>
             <div className={`${active ? '' : ' -translate-x-24'} duration-400 h-28 w-6/12 bg-slate-800 rounded-2xl mx-auto text-center pt-4 translate-y-12`} >
                 <i>icon</i>
-                <p>ادمین</p>
+                <p>admin</p>
             </div>
             <ul className={`${active ? '' : '-translate-x-24 '} duration-700 w-11/12 mx-auto translate-y-14`}>
-                <li className='hover:bg-slate-800 px-9 py-1 rounded-lg'><button>داشبورد</button></li>
-                <li className='hover:bg-slate-800 px-9 py-1 rounded-lg'><button>داشبورد</button></li>
-                <li className='hover:bg-slate-800 px-9 py-1 rounded-lg'><button>داشبورد</button></li>
-                <li className='hover:bg-slate-800 px-9 py-1 rounded-lg'><button>داشبورد</button></li>
-                <li className='hover:bg-slate-800 px-9 py-1 rounded-lg'><button>داشبورد</button></li>
+                <li className='hover:bg-slate-800 px-9 py-1 rounded-lg'><button>Dashboard</button></li>
+                <li className='hover:bg-slate-800 px-9 py-1 rounded-lg'><button>Dashboard</button></li>
+                <li className='hover:bg-slate-800 px-9 py-1 rounded-lg'><button>Dashboard</button></li>
+                <li className='hover:bg-slate-800 px-9 py-1 rounded-lg'><button>Dashboard</button></li>
+                <li className='hover:bg-slate-800 px-9 py-1 rounded-lg'><button>Dashboard</button></li>
             </ul>
         </div>
     )
