@@ -3,10 +3,10 @@ import UserTable from '../componets/userTable'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteUser, setUsers } from '../features/users/usersSlice'
 import AddUsersForm from '../componets/AdduserForm'
-
+import ModalForm from '../componets/ModalForm'
 function Users() {
     const [editingUser, setEditingUser] = useState(null)
-    const [add, setAdd] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
     const users = useSelector((state) => state.users.list)
     const dispatch = useDispatch()
     useEffect(() => {
@@ -19,15 +19,18 @@ function Users() {
     }
     const handleEdit = (user) => {
         setEditingUser(user)
-        setAdd(true)
+        setIsOpen(true)
     }
     return (
         <div >
-            <div className='p-2 bg-gray-200 w-12 rounded-xl' onClick={() => { setAdd(!add) }}>ADD</div>
+            <div className='p-2 bg-gray-200 w-12 rounded-xl' onClick={() => { setIsOpen(!add) }}>ADD</div>
             <UserTable users={users} onDelete={handleDelete} onEdit={handleEdit} />
+           <ModalForm isOpen={isOpen} setIsOpen={setIsOpen}>
             {
-                add && <AddUsersForm setAdd={setAdd} editingUser={editingUser} />
+                isOpen && <AddUsersForm setIsOpen={setIsOpen} editingUser={editingUser} />
             }
+           </ModalForm>
+
         </div>
     )
 }

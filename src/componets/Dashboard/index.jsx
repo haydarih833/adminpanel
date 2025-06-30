@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
 import Users from '../../pages/users'
-import AddUsersForm from '../AdduserForm'
 const DashBorad = () => {
     return (
 
@@ -19,7 +17,7 @@ const DashBorad = () => {
                     salam
                 </div>
             </div>
-            <div className='bg-white mt-4 h-86 p-3 overflow-y-scroll'>
+            <div className='bg-white mt-4 h-86 p-3 overflow-y-scroll rounded-xl'>
                 <Users />
             </div>
         </div>
