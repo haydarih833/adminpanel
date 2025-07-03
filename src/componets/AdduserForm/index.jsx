@@ -1,52 +1,55 @@
 import { Button, TextField } from '@mui/material'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { addUser, editUser } from '../../features/users/usersSlice';
+import { createUser, editUser, } from '../../features/users/usersSlice';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup'
+import { addUser } from '../../../backend/controllers/userController';
+import { Textarea } from '@material-tailwind/react';
+// import { addUser, updateUser } from '../../../backend/controllers/userController';
 // import { yupResolver } from '@hookform/resolvers'
 
 
-function AddUsersForm({ editingUser, setIsOpen }) {
+const schema = yup.object().shape({
+    name: yup.string().required('thats filled empty '),
+    username: yup.string().required('thats filled empty '),
+    email: yup.string().required('thats filled empty '),
+    city: yup.string().required('thats filled empty ')
+})
+
+
+function AddUsersForm({  editingUser, setIsOpen }) {
+
     const dispatch = useDispatch()
-    const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm({ resolver: yupResolver(schema) })
+    const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm({})
     useEffect(() => {
         if (editingUser) {
             setValue('name', editingUser.name),
                 setValue('username', editingUser.username),
                 setValue('email', editingUser.email),
-                setValue('city', editingUser.address?.city)
+                setValue('city', editingUser.address?.city || '')
         }
-    }, [])
+    }, [editingUser, setValue])
+
 
     const onSubmit = async (data) => {
-        const user = {
-            id: editingUser ? editingUser : Date.now(),
-            name: data.name,
-            username: data.username,
-            email: data.email,
-            address: {
-                city: data.city
-            }
-        }
         if (editingUser) {
-            dispatch(editUser(user))
-            toast.info('edit user successfully')
+            dispatch(editUser({
+                id: editingUser._id, updatedDate: {
+                    name: data.name,
+                    username: data.username,
+                    email: data.email,
+                    address: { city: data.city }
+                }
+            }))
         } else {
-            dispatch(addUser(user))
-            toast.success('add new user successfully')
+            dispatch(addUser({}));
         }
+        dispatch(createUser(data))
         reset()
-        setIsOpen(false)
-    }
-
-    const schema = yup.object().shape({
-        name: yup.string().required('thats filled empty '),
-        username: yup.string().required('thats filled empty '),
-        email: yup.string().required('thats filled empty '),
-        city: yup.string().required('thats filled empty ')
-    })
+        setIsOpen(false);
+    };
 
 
     return (

@@ -1,17 +1,18 @@
 import React from 'react'
-import Navbar from './Navbar'
+import SearchIcon from '@mui/icons-material/Search';
+import { TextField } from '@mui/material'
+import OutSide from './Outside'
 
 function Header() {
     return (
-        <div className='bg-white h-20 flex justify-between z-50'>
+        <div className='bg-white h-20 flex justify-between  z-30'>
             <div>
-                <Navbar />
+                <OutSide />
             </div>
-            <div>
-                <div className='pt-6'>
-                    <input placeholder='search ...' />
-                </div>
+            <div className='pt-3 text-slate-900 text-4xl w-20'>
+                <SearchIcon />
             </div>
+
 
         </div>
     )
