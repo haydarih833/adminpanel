@@ -1,37 +1,66 @@
-import React from 'react'
+import { Button, TextField } from '@mui/material'
+import React, { useState } from 'react'
 function Details() {
+    const [isEdit, setIsEdit] = useState(false)
     return (
-        <div className='w-full bg-sky-500 opacity-100 absolute top-0 left-0 '>
-            <div className='w-8/12 h-[80vh] bg-white opacity-100 mx-auto mt-8 rounded-2xl'>
-                <div className='p-10 bg-white text-2xl'>
-                    <div className='grid grid-cols-2 gap-4'>
-                        <div>
-                            <p className='text-gray-500'>Name</p>
-                            <p className='p-3 bg-gray-200 rounded-2xl'>Mohammad reza</p>
-                        </div>
-                        <div>
-                            <p className='text-gray-500'>Username</p>
-                            <p className='p-3 bg-gray-200 rounded-2xl'>Mohammad reza</p>
-                        </div>
+        <div className='w-full h-screen bg-zinc-900 absolute top-0 left-0 pt-5'>
+            <div className='w-9/12 h-10/12 mt-10 mx-auto bg-white rounde-2xl p-10 text-xl grid fon'>
+                <div className='grid grid-cols-2 gap-10'>
+                    <div>
+                        <p>Name</p>
+                        {
+                            isEdit ?
+                                <TextField className='w-full' type='name' variant='outlined' label='Name' />
+                                :
+                                <p>ss</p>
+                        }
                     </div>
                     <div>
-                        <div>
-                            <p className='text-gray-500'>Address</p>
-                            <p className='p-3 bg-gray-200 rounded-2xl'>Tehran</p>
-                        </div>
-                        <div>
-                            <p className='text-gray-500'>Email</p>
-                            <p className='p-3 bg-gray-200 rounded-2xl'>Tehran</p>
-                        </div>
-                        <div>
-                            <p className='text-gray-500'>Phone</p>
-                            <p className='p-3 bg-gray-200 rounded-2xl'>Tehran</p>
-                        </div>
-                        <div>
-                            <p className='text-gray-500'>Company</p>
-                            <p className='p-3 bg-gray-200 rounded-2xl'>name</p>
-                        </div>
+                        <p>Username</p>
+                        {isEdit ?
+                            <TextField className='w-full' type='username' variant='outlined' label='Username' />
+                            :
+                            <p>salam</p>
+                        }
                     </div>
+                </div>
+                <p>Email</p>
+                {
+                    isEdit ?
+                        <TextField type='email' variant='outlined' label='Email' />
+                        :
+                        <p>slala</p>
+                }
+                <p>Address</p>
+                {
+                    isEdit ?
+                        <TextField type='Address' variant='outlined' label='Address' />
+                        :
+                        <p>ddw</p>
+
+                }
+                <p>Phone</p>
+                {
+                    isEdit ?
+                        <TextField type='Phone' variant='outlined' label='Phone' />
+                        :
+                        <p>+9899969696969</p>
+                }
+                <p>Company</p>
+                {
+                    isEdit ?
+                        <TextField type='Company' variant='outlined' label='Company' />
+                        :
+                        <p>ddddddddddddddddddddddddddddd</p>
+                }
+                <div className='pt-10 text-end'>
+                    {
+                        isEdit ?
+                            <Button variant='outlined' onClick={() => { setIsEdit(false) }}>confirm</Button>
+                            :
+                            <Button variant='outlined' onClick={() => { setIsEdit(true) }}>Edit</Button>
+                    }
+                    <Button color='error'>cancel</Button>
                 </div>
             </div>
         </div>

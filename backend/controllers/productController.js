@@ -1,4 +1,4 @@
-import Products from "../models/products";
+import Products from "../models/products.js";
 
 export const getProducts = async (req, res) => {
     try {
@@ -9,7 +9,7 @@ export const getProducts = async (req, res) => {
     }
 }
 
-export const addProduct = async (req, res) => {
+export const addProducts = async (req, res) => {
     try {
         const newProduct = new Products(req.body)
         const saved = await newProduct.save();

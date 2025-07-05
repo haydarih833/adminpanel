@@ -2,10 +2,12 @@ import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Header from './componets/Header'
-import DashBorad from './componets/Dashboard'
 import Layout from './layouts/layout'
-import SignInPage from './componets/loginSign/SignUp'
-import Login from './componets/loginSign/logIn'
+// import SignInPage from './componets/loginSign/SignUp'
+// import Login from './componets/loginSign/logIn'
+import SignIn from './componets/pagesAuth'
+import PrivateRoute from './componets/PrivateRoute'
+import SignUp from './signup'
 function App() {
 
   return (
@@ -13,15 +15,26 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path='/' element={<Layout type="users" />} />
-          <Route path='/products' element={<Layout type="products" />} />
-          {/* <Route path='/signIn' element={<SignInPage />} /> */}
-          {/* <Route path='/login' element={<Login />} /> */}
+          {/* <Route path='/' element={<SignIn />} /> */}
+          <Route path='/users' element={
+            // <PrivateRoute>
+            <Layout type="users" />
+            // </PrivateRoute>
+          } />
+          <Route path='/products' element={
+            // <PrivateRoute>
+            <Layout type="products" />
+            // </PrivateRoute>
+          } />
+          {/* <Route path='/*' element={
+            <PrivateRoute>
+              
+            </PrivateRoute>
+          } /> */}
+          <Route path='/signup' element={<SignUp />} />
         </Routes>
-
       </BrowserRouter>
-
-    </div >
+    </div>
   )
 }
 

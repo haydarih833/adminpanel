@@ -19,7 +19,7 @@ const schema = yup.object().shape({
 })
 
 
-function AddUsersForm({  editingUser, setIsOpen }) {
+function AddUsersForm({ editingUser, setIsOpen }) {
 
     const dispatch = useDispatch()
     const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm({})
@@ -53,9 +53,10 @@ function AddUsersForm({  editingUser, setIsOpen }) {
 
 
     return (
-        <div className='absolute w-10/12 h-96 bg-slate-700 top-4 p-4 rounded-2xl'>
+        <div className='absolute w-10/12 h-10/12 bg-white left-1/12 top-4 p-4 rounded-2xl'>
+            <p className='text-black mb-5'>Add User</p>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className='grid gap-3 text-white'>
+                <div className='grid gap-3'>
                     <TextField
                         {...register('name')}
                         name="name"
@@ -89,7 +90,7 @@ function AddUsersForm({  editingUser, setIsOpen }) {
                     />
                     {errors.name && <p>{errors.name.message}</p>}
                 </div>
-                <div className='mt-5'>
+                <div className='mt-5 text-end'>
                     <Button variant='outlined' color='error' onClick={() => { setIsOpen(false) }}>cancel</Button>
                     <Button type='submit'>confirm</Button>
                 </div>

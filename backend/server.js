@@ -15,8 +15,8 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use("/api/users", router)
+app.use("/api/products",productsRouter)
 app.use("/api/auth", routerAuth)
-app.use("/api",productsRouter)
 
 const PORT = 5000;
 app.listen(PORT, () => {

@@ -20,7 +20,7 @@ export const createUser = createAsyncThunk("users/createUser", async (userData) 
 })
 
 export const deleteUser = createAsyncThunk('users/deleteUser', async (id) => {
-    console.log("deleted users")
+  
     await fetch(`http://localhost:5000/api/users/${id}`, {
         method: "DELETE",
     })
