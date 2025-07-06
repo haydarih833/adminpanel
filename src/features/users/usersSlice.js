@@ -9,7 +9,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
 export const createUser = createAsyncThunk("users/createUser", async (userData) => {
     const res = await fetch("http://localhost:5000/api/users", {
         method: 'POST',
-        headers: { "Contect-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData)
     });
     if (!res.ok) {
@@ -20,7 +20,7 @@ export const createUser = createAsyncThunk("users/createUser", async (userData) 
 })
 
 export const deleteUser = createAsyncThunk('users/deleteUser', async (id) => {
-  
+
     await fetch(`http://localhost:5000/api/users/${id}`, {
         method: "DELETE",
     })
@@ -30,7 +30,7 @@ export const deleteUser = createAsyncThunk('users/deleteUser', async (id) => {
 export const editUser = createAsyncThunk("users/editUser", async ({ id, updatedData }) => {
     const res = await fetch(`http://localhost:5000/api/users/${id}`, {
         method: 'PUT',
-        headers: { "Content-Type": "applicaation/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedData),
     })
     return await res.json()
@@ -58,7 +58,7 @@ const userSlice = createSlice({
                 state.list.push(action.payload)
             })
             .addCase(deleteUser.fulfilled, (state, action) => {
-                state.list = state.list.filter((user) => { user._id !== action.payload })
+               state.list = state.list.filter((user) =>user._id !== action.payload)
             })
             .addCase(editUser.fulfilled, (state, action) => {
                 const updated = action.payload;

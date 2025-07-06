@@ -1,68 +1,78 @@
-import React from 'react'
-import { Button, TextField } from '@mui/material'
+import React, { useState } from 'react';
+import { Button, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
 const SignIn = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [loading, setLoading] = useState(false);
 
-    const onSubmit = async (data) => {
-        try {
-            const res = await fetch("http://localhost:5000/api/auth/signin", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" }, // Fixed typo 'handers' to 'headers'
-                body: JSON.stringify(data)
-            });
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
 
-            const result = await res.json();
+      const result = await res.json();
 
-            if (!res.ok) {
-                alert(result.message || "Login failed");
-                return;
-            }
+      if (!res.ok) {
+        alert(result.message || "Login failed");
+        setLoading(false);
+        return;
+      }
 
-            localStorage.setItem("token", result.token);
-            alert("Login Successful");
-            window.location.href = "/"; // Redirect after successful login
-        } catch (error) {
-            console.error("Login error", error);
-            alert("An error occurred. Please try again."); // Added user feedback for errors
-        }
-    };
-    return (
-        <div className=' w-full h-screen absolute top-0 left-0 bg-sky-900' >
-            <div className='w-[500px] h-[600px] absolute top-1/12 left-4/12 bg-white text-center pt-20 text-4xl rounded-3xl'>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <p>SIGN IN</p>
-                    <div className='flex flex-col gap-10 p-10 '>
-                        <TextField
-                            {...register("email", { required: "Email is required" })}
-                            placeholder='Email'
-                            type='email'
-                            className='mt-10'
-                            label='Email'
-                            error={!!errors.email} // Show error state if there's an error
-                            helperText={errors.email ? errors.email.message : ""} // Display error message
-                        />
+      localStorage.setItem("user", JSON.stringify(result));
+      alert("Login Successful");
+      window.location.href = "/users";
+    } catch (error) {
+      console.error("Login error", error);
+      alert("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                        <TextField
-                            {...register("password", { required: "Password is required" })}
-                            placeholder='Password'
-                            type='password'
-                            label='Password'
-                            error={!!errors.password} // Show error state if there's an error
-                            helperText={errors.password ? errors.password.message : ""} // Display error message
-                        />
+  return (
+    <div className='w-full h-screen flex items-center justify-center bg-sky-900 absolute top-0'>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='bg-white w-[90%] max-w-[500px] rounded-3xl p-10 text-center shadow-xl'
+      >
+        <h2 className='text-3xl font-bold mb-8'>Sign In</h2>
 
-                        <Button type="submit" variant='outlined' className=''>
-                            SignIn
-                        </Button>
+        <div className='flex flex-col gap-6'>
+          <TextField
+            {...register("email", { required: "ایمیل الزامی است" })}
+            label="Email"
+            type="email"
+            error={!!errors.email}
+            helperText={errors.email?.message}
+            fullWidth
+          />
 
-                    </div>
+          <TextField
+            {...register("password", { required: "رمز عبور الزامی است" })}
+            label="Password"
+            type="password"
+            error={!!errors.password}
+            helperText={errors.password?.message}
+            fullWidth
+          />
 
-                </form>
-            </div>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={loading}
+          >
+            {loading ? "در حال ورود..." : "ورود"}
+          </Button>
         </div>
-    )
-}
+      </form>
+    </div>
+  );
+};
 
-export default SignIn
+export default SignIn;

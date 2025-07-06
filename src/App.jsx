@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Header from './componets/Header'
 import Layout from './layouts/layout'
-// import SignInPage from './componets/loginSign/SignUp'
-// import Login from './componets/loginSign/logIn'
 import SignIn from './componets/pagesAuth'
 import PrivateRoute from './componets/PrivateRoute'
 import SignUp from './signup'
@@ -15,22 +13,22 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          {/* <Route path='/' element={<SignIn />} /> */}
+          <Route path='/' element={<SignIn />} />
           <Route path='/users' element={
-            // <PrivateRoute>
+            <PrivateRoute>
             <Layout type="users" />
-            // </PrivateRoute>
+            </PrivateRoute>
           } />
           <Route path='/products' element={
-            // <PrivateRoute>
+            <PrivateRoute>
             <Layout type="products" />
-            // </PrivateRoute>
+             </PrivateRoute>
           } />
-          {/* <Route path='/*' element={
+          <Route path='/*' element={
             <PrivateRoute>
               
             </PrivateRoute>
-          } /> */}
+          } />
           <Route path='/signup' element={<SignUp />} />
         </Routes>
       </BrowserRouter>

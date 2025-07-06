@@ -2,9 +2,18 @@ import React, { useState } from 'react'
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import GroupIcon from '@mui/icons-material/Group';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../../features/users/authSlice';
 
 function OutSide() {
     const [isOpen, setIsOpen] = useState(false)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate('/')
+    }
 
     return (
         <div className={`${isOpen ? ' translate-0 w-[350px] z-40' : '-translate-x-42 w-0 z-0'} duration-700 bg-slate-900  h-screen absolute left-0 `}>
@@ -20,11 +29,11 @@ function OutSide() {
                 <li onClick={() => { window.location.href = "/products" }} className='flex hover:text-white hover:bg-slate-800 p-4 rounded-2xl'>
                     <GroupIcon /><span className='ml-5'> Products</span>
                 </li>
-            
+
                 <li onClick={() => { window.location.href = "/signup" }} className='flex hover:text-white hover:bg-slate-800 p-4 rounded-2xl'>
                     <AccountBalanceIcon /><span className='ml-5'>Sign up</span>
                 </li>
-                <li className='flex hover:text-white hover:bg-slate-800 p-4 rounded-2xl'>
+                <li onClick={handleLogout} className='flex hover:text-white hover:bg-slate-800 p-4 rounded-2xl'>
                     <AccountBalanceIcon /><span className='ml-5'> Logout</span>
                 </li>
             </ul>

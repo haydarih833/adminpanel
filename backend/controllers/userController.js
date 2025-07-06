@@ -35,6 +35,9 @@ export const updateUser = async (req, res) => {
             { name, username, email, address },
             { new: true }
         );
+        if(!updated){
+            return res.status(404).json({ error: 'User not found' });
+        }
         res.status(200).json(updated)
     } catch (error) {
         console.error("error in updateUser ", error)
@@ -46,7 +49,7 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
-        const deleted = await User.findByIdAndUpdate(id);
+        const deleted = await User.findByIdAndDelete(id);
         if (!deleted) {
             return res.status(404).json({ message: "user not found" })
         }

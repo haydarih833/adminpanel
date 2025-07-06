@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     address: {
         city: String,
     },
-}, { timesTamps: true }
+}, { timestamps: true }
 )
 
 const User = mongoose.model("User", userSchema)

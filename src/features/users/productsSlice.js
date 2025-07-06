@@ -1,41 +1,50 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify"; 
 
+// GET PRODUCTS
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
-  const res = await fetch("http://localhost:5000/api/products")
-  if (!res.ok) throw new Error('failed to fetch products')
+  const res = await fetch("http://localhost:5000/api/products");
+  if (!res.ok) throw new Error("Failed to fetch products");
   return await res.json();
+});
 
-})
-export const createProduct = createAsyncThunk("product/createProduct", async (userData) => {
+// CREATE PRODUCT
+export const createProduct = createAsyncThunk("products/createProduct", async (productData) => {
   const res = await fetch("http://localhost:5000/api/products", {
     method: "POST",
-    headers: { 'Contect-Type': "application/json" },
-    body: JSON.stringify(userData)
-  })
-  if (!res.ok) throw new Error('network response was not ok')
-  toast.success('User added successfully')
-  return await res.json()
-})
+    headers: { 'Content-Type': "application/json" },
+    body: JSON.stringify(productData)
+  });
+  if (!res.ok) throw new Error("Failed to create product");
+  toast.success("Product created successfully");
+  return await res.json();
+});
 
-export const deleteProdcut = createAsyncThunk("product/deleteProduct", async (id) => {
-  const res = await fetch(`http://lacalhost:5000/api/products/${id}`, {
+// DELETE PRODUCT
+export const deleteProduct = createAsyncThunk("products/deleteProduct", async (id) => {
+  const res = await fetch(`http://localhost:5000/api/products/${id}`, {
     method: "DELETE",
-    headers: { 'Contect-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (!res.ok) throw new Error("Failed to delete product");
+  toast.success("Product deleted");
+  return id;
+});
 
-  })
-  return id
-})
-
-export const editProduct = createAsyncThunk("product/editerProduct", async ({ id, updatedData }) => {
-  const res = await fetch(`http://localhost:5000/api/users/${id}`, {
-    method: 'PUT',
-    headers: { "Content-Type": "applicaation/json" },
+// EDIT PRODUCT
+export const editProduct = createAsyncThunk("products/editProduct", async ({ id, updatedData }) => {
+  const res = await fetch(`http://localhost:5000/api/products/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updatedData),
-  })
-  return await res.json()
-})
+  });
+  if (!res.ok) throw new Error("Failed to edit product");
+  toast.success("Product updated");
+  return await res.json();
+});
+
 const productsSlice = createSlice({
-  name: "Products",
+  name: "products",
   initialState: {
     list: [],
     loading: false,
@@ -45,31 +54,34 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
-        state.loading = true,
-          state.error = null
+        state.loading = true;
+        state.error = null;
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.loading = false,
-          state.list = action.payload
+        state.loading = false;
+        state.list = action.payload;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
-        state.loading = false,
-          state.error = action.error.message
+        state.loading = false;
+        state.error = action.error.message;
       })
+
       .addCase(createProduct.fulfilled, (state, action) => {
-        state.list.push(action.payload)
+        state.list.push(action.payload);
       })
-      .addCase(deleteProdcut.fulfilled, (state, action) => {
-        state.list = state.list.filter((user) => { user._id !== action.payload })
+
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.list = state.list.filter((product) => product._id !== action.payload);
       })
+
       .addCase(editProduct.fulfilled, (state, action) => {
         const updated = action.payload;
-        const index = state.list.findIndex((u) => u._id === updated._id);
+        const index = state.list.findIndex((p) => p._id === updated._id);
         if (index !== -1) {
-          state.list[index] = updated
+          state.list[index] = updated;
         }
       });
   }
-})
+});
 
-export default productsSlice.reducer
+export default productsSlice.reducer;
