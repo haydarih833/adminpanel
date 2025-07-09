@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 const SignIn = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -18,13 +19,13 @@ const SignIn = () => {
       const result = await res.json();
 
       if (!res.ok) {
-        alert(result.message || "Login failed");
+        toast.error(result.message || "Login failed");
         setLoading(false);
         return;
       }
 
       localStorage.setItem("user", JSON.stringify(result));
-      alert("Login Successful");
+      toast.success("Login Successful");
       window.location.href = "/users";
     } catch (error) {
       console.error("Login error", error);
@@ -44,7 +45,7 @@ const SignIn = () => {
 
         <div className='flex flex-col gap-6'>
           <TextField
-            {...register("email", { required: "ایمیل الزامی است" })}
+            {...register("email", { required: "Email is required" })}
             label="Email"
             type="email"
             error={!!errors.email}
@@ -53,7 +54,7 @@ const SignIn = () => {
           />
 
           <TextField
-            {...register("password", { required: "رمز عبور الزامی است" })}
+            {...register("password", { required: "Password is required" })}
             label="Password"
             type="password"
             error={!!errors.password}
@@ -67,7 +68,7 @@ const SignIn = () => {
             color="primary"
             disabled={loading}
           >
-            {loading ? "در حال ورود..." : "ورود"}
+            {loading ? " sign In..." : "sign In"}
           </Button>
         </div>
       </form>

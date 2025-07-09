@@ -23,8 +23,8 @@ function OutSide() {
                 </div>
             </div>
             <ul className='py-20 px-5 text-gray-300'>
-                <li onClick={() => { window.location.href = "/" }} className='flex hover:text-white hover:bg-slate-800 p-4 rounded-2xl'>
-                    <AccountBalanceIcon /><span className='ml-5'> Dashboard</span>
+                <li onClick={() => { window.location.href = "/users" }} className='flex hover:text-white hover:bg-slate-800 p-4 rounded-2xl'>
+                    <AccountBalanceIcon /><span className='ml-5'> Users</span>
                 </li>
                 <li onClick={() => { window.location.href = "/products" }} className='flex hover:text-white hover:bg-slate-800 p-4 rounded-2xl'>
                     <GroupIcon /><span className='ml-5'> Products</span>

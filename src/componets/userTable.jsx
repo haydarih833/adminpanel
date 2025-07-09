@@ -26,7 +26,7 @@ const UserTable = ({ dataToShow, type }) => {
       <table className="w-full font-sans text-xl text-white text-center">
         <thead className="bg-slate-900 text-white text-center">
           {type === 'users' ? (
-            <tr className="h-12 border-b-1 border-gray-400">
+            <tr className="h-12 border-b-1 border-gray-400 w-60">
               <th>#</th>
               <th>Name</th>
               <th>Username</th>
@@ -48,7 +48,7 @@ const UserTable = ({ dataToShow, type }) => {
         <tbody>
           {dataToShow.map((item, index) => (
             <tr
-              className="border-b-1 border-gray-400 h-10 bg-slate-800 cursor-pointer"
+              className="w-96 border-b-1 border-gray-400 h-10 bg-slate-800 cursor-pointer"
               key={index}
               onClick={() => handleRowClick(item)}
             >
@@ -66,7 +66,7 @@ const UserTable = ({ dataToShow, type }) => {
                   <td>{item.title}</td>
                   <td>{item.price}</td>
                   <td>{item.gender}</td>
-                  <td>{item.size?.join(', ')}</td>
+                  <td>{item.size?.join(',')}</td>
                 </>
               )}
             </tr>
